@@ -22,17 +22,17 @@ import os
 import numpy as np
 
 # Key parameters
-resize_dims = (64, 64) # Target resizing dimensions of images
+resize_dims = (128, 128) # Target resizing dimensions of images
 train_folders = "./data/train/"
 test_folders = "./data/test/"
 n_bins = 16 # For HHist
-model_type = ['svm', 'nb', 'lreg'] # Choose model type(s). Default: ['svm', 'nb', 'lreg']
+model_type = ['svm', 'nb'] # Choose model type(s). Default: ['svm', 'nb', 'lreg']
 '''
 svm: Support Vector Machine
 nb: Naive Bayes
 lreg: Logistical Regression
 '''
-feature_type = ['HOG', 'HHist', 'raw'] # Choose feature type(s). Default: ['HOG', 'HHist', 'raw']
+feature_type = ['HOG'] # Choose feature type(s). Default: ['HOG', 'HHist', 'raw']
 '''
 HOG: Histogram of Oriented Gradients
 HHist: Hue Histogram
@@ -232,7 +232,7 @@ for curr_model in model_type:
 if show_confusion_matrix:
     # Plot confusion matrix
     confusion_matrices = {}
-    display_labels = classes_labels
+    display_labels = classes_labels.values()
     for m in model_type:
         for f in feature_type:
             cm = confusion_matrices[m + '_' + f] = plot_confusion_matrix(models[m + '_' + f], features[f + '_test'], test_labels, display_labels=display_labels)
